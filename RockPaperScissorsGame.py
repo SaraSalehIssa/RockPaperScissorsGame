@@ -57,21 +57,24 @@ class RockPaperScissorsGame:
 
 
 if __name__ == '__main__':
-    human = HumanPlayer()
-    random = RandomPlayer()
-    fixed = FixedPlayer()
-    remember = RememberingPlayer()
-
-    # To choice from computer player classes with different strategies
-    levels = ['easy', 'medium', 'hard']
-    level = input("Please choice game level -> easy, medium, hard:").lower()
-    while level not in levels:
-        level = input("Invalid input! Enter -> easy, medium, hard:").lower()
-    if level == 'easy':
-        game = RockPaperScissorsGame(human, fixed)
-    elif level == 'medium':
-        game = RockPaperScissorsGame(human, random)
-    else:
-        game = RockPaperScissorsGame(human, remember)
-    # Start from here
+    players = {
+        '1': HumanPlayer,
+        '2': RandomPlayer,
+        '3': FixedPlayer,
+        '4': RememberingPlayer
+    }
+    print("Player list:")
+    for number, player in players.items():
+        print(f"{number}. {player.__name__}")
+    p1 = input("Choose player 1: ")
+    while p1 not in players.keys():
+        print("Invalid input! please select player 1")
+        p1 = input("Choose player 1: ")
+    p2 = input("Choose player 2: ")
+    while p2 not in players.keys():
+        print("Invalid input! please select player 2")
+        p2 = input("Choose player 2: ")
+    player1 = players[p1]()
+    player2 = players[p2]()
+    game = RockPaperScissorsGame(player1, player2)
     game.start_game()

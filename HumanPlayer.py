@@ -1,9 +1,11 @@
 from Player import Player
 
+
 class HumanPlayer(Player):
     def choice(self):
         choices = ['rock', 'paper', 'scissors']
-        choice = input("Please enter one choice -> rock, paper, scissors:").lower()
+        choice = input("Please choice -> rock, paper, scissors:").lower()
         while choice not in choices:
-            choice = input("Invalid input! Enter rock, paper, or scissors:").lower()
+            print("Invalid input!")
+            choice = input("Please choice -> rock, paper, scissors:").lower()
         return choice

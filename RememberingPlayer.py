@@ -1,6 +1,7 @@
 import random
 from Player import Player
 
+
 class RememberingPlayer(Player):
     def __init__(self):
         self.last_choice = None

@@ -4,6 +4,7 @@ from RandomPlayer import RandomPlayer
 from FixedPlayer import FixedPlayer
 from RememberingPlayer import RememberingPlayer
 
+
 class RockPaperScissorsGame:
     def __init__(self, player1, player2):
         self.player1 = player1
@@ -45,7 +46,7 @@ class RockPaperScissorsGame:
             print(f"In Round {round+1}:")
             self.round_result()
         print("Final Result:")
-        print(f"Final Score -> Player1: {self.score1}, and Player2: {self.score2}")
+        print(f"Score -> Player1: {self.score1}, and Player2: {self.score2}")
         if self.score1 > self.score2:
             print("Player 1 wins!")
         elif self.score1 < self.score2:
@@ -64,15 +65,13 @@ if __name__ == '__main__':
     # To choice from computer player classes with different strategies
     levels = ['easy', 'medium', 'hard']
     level = input("Please choice game level -> easy, medium, hard:").lower()
-    
     while level not in levels:
-        level = input("Invalid input! Enter game level -> easy, medium, hard, or exit:").lower()
-
+        level = input("Invalid input! Enter -> easy, medium, hard:").lower()
     if level == 'easy':
         game = RockPaperScissorsGame(human, fixed)
     elif level == 'medium':
         game = RockPaperScissorsGame(human, random)
     else:
         game = RockPaperScissorsGame(human, remember)
-
+    # Start from here
     game.start_game()

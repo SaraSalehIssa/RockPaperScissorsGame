@@ -3,6 +3,7 @@ from HumanPlayer import HumanPlayer
 from RandomPlayer import RandomPlayer
 from FixedPlayer import FixedPlayer
 from RememberingPlayer import RememberingPlayer
+from CyclePlayer import CyclePlayer
 
 
 class RockPaperScissorsGame:
@@ -14,6 +15,10 @@ class RockPaperScissorsGame:
 
 # Paper > rock | rock > scissors | scissors > paper
     def result(self, choice1, choice2):
+        valid_moves = ['rock', 'paper', 'scissors']
+        if choice1 not in valid_moves or choice2 not in valid_moves:
+            print(f"Player1: {choice1}, Player2: {choice2}.")
+            return None
         if ((choice1 == 'paper' and choice2 == 'rock') or
                 (choice1 == 'rock' and choice2 == 'scissors') or
                 (choice1 == 'scissors' and choice2 == 'paper')):
@@ -26,6 +31,8 @@ class RockPaperScissorsGame:
 
         if choice1 == choice2:
             print(f"It's a tie! Both players choice: {choice1}")
+        elif self.result(choice1, choice2) is None:
+            print("Invalid round!")
         elif self.result(choice1, choice2):
             print("Player 1 wins!")
             self.score1 += 1
@@ -41,10 +48,20 @@ class RockPaperScissorsGame:
 
     def start_game(self):
         print("Hello, Welcome To Rock Paper Scissors Game!")
-        rounds = int(input("Enter number of rounds: "))
+        rounds = 0
+        while True:
+            try:
+                rounds = int(input("Enter number of rounds: "))
+                if rounds <= 0:
+                    raise ValueError("The number of rounds must be +")
+                break
+            except ValueError:
+                print("Please enter a valid number of rounds!")
+
         for round in range(rounds):
-            print(f"In Round {round+1}:")
+            print(f"In Round {round + 1}:")
             self.round_result()
+
         print("Final Result:")
         print(f"Score -> Player1: {self.score1}, and Player2: {self.score2}")
         if self.score1 > self.score2:
@@ -53,7 +70,7 @@ class RockPaperScissorsGame:
             print("Player 2 wins!")
         else:
             print("It's a tie!")
-        print("Good Bye!")
+        print("Goodbye!")
 
 
 if __name__ == '__main__':
@@ -61,7 +78,8 @@ if __name__ == '__main__':
         '1': HumanPlayer,
         '2': RandomPlayer,
         '3': FixedPlayer,
-        '4': RememberingPlayer
+        '4': RememberingPlayer,
+        '5': CyclePlayer
     }
     print("Player list:")
     for number, player in players.items():
